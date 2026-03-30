@@ -7,262 +7,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* جميع الأنماط السابقة (كما في الرد السابق) – اختصاراً سأضع الأنماط الأساسية، يمكنك نسخها من الملف السابق */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #0A192F;
-      color: #F5F2EB;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.5;
-    }
+    body { background: #0A192F; color: #F5F2EB; font-family: 'Inter', sans-serif; line-height: 1.5; }
     .gold-accent { color: #C5A572; }
-    .btn-primary {
-      background: #C5A572;
-      color: #0A192F;
-      border: none;
-      padding: 12px 28px;
-      font-weight: 600;
-      border-radius: 40px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
-    }
-    .btn-primary:hover {
-      background: #b3905a;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(197,165,114,0.3);
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid #C5A572;
-      color: #C5A572;
-      padding: 10px 24px;
-      border-radius: 40px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .btn-outline:hover {
-      background: #C5A572;
-      color: #0A192F;
-    }
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 5%;
-      background: rgba(10,25,47,0.7);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid rgba(197,165,114,0.2);
-      flex-wrap: wrap;
-    }
+    .btn-primary { background: #C5A572; color: #0A192F; border: none; padding: 12px 28px; font-weight: 600; border-radius: 40px; cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem; }
+    .btn-primary:hover { background: #b3905a; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(197,165,114,0.3); }
+    .btn-outline { background: transparent; border: 1px solid #C5A572; color: #C5A572; padding: 10px 24px; border-radius: 40px; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+    .btn-outline:hover { background: #C5A572; color: #0A192F; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(10,25,47,0.7); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(197,165,114,0.2); flex-wrap: wrap; }
     .logo { font-size: 1.8rem; font-weight: 800; font-family: 'Playfair Display', serif; }
     .nav-links { display: flex; gap: 2rem; }
     .nav-links a { color: #F5F2EB; text-decoration: none; font-weight: 500; transition: 0.2s; }
     .nav-links a:hover { color: #C5A572; }
     .nav-icons { display: flex; gap: 1.8rem; align-items: center; }
-    .nav-icons button {
-      background: none;
-      border: none;
-      color: #F5F2EB;
-      font-size: 1.3rem;
-      cursor: pointer;
-      position: relative;
-    }
-    .cart-count, .wishlist-count {
-      position: absolute;
-      top: -8px;
-      right: -12px;
-      background: #C5A572;
-      color: #0A192F;
-      font-size: 0.7rem;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-    .product-detail-page {
-      padding: 6rem 5% 4rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
+    .nav-icons button { background: none; border: none; color: #F5F2EB; font-size: 1.3rem; cursor: pointer; position: relative; }
+    .cart-count, .wishlist-count { position: absolute; top: -8px; right: -12px; background: #C5A572; color: #0A192F; font-size: 0.7rem; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    .product-detail-page { padding: 6rem 5% 4rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
     .product-gallery { position: relative; }
-    .main-image {
-      width: 100%;
-      border-radius: 28px;
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4);
-      margin-bottom: 1.5rem;
-      transition: transform 0.3s;
-      cursor: pointer;
-    }
+    .main-image { width: 100%; border-radius: 28px; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4); margin-bottom: 1.5rem; transition: transform 0.3s; cursor: pointer; }
     .main-image:hover { transform: scale(1.02); }
-    .thumbnail-grid {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .thumbnail {
-      width: 80px;
-      height: 80px;
-      border-radius: 16px;
-      object-fit: cover;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: 2px solid transparent;
-      opacity: 0.7;
-    }
-    .thumbnail:hover, .thumbnail.active {
-      border-color: #C5A572;
-      opacity: 1;
-      transform: scale(1.05);
-    }
+    .thumbnail-grid { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .thumbnail { width: 80px; height: 80px; border-radius: 16px; object-fit: cover; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; opacity: 0.7; }
+    .thumbnail:hover, .thumbnail.active { border-color: #C5A572; opacity: 1; transform: scale(1.05); }
     .product-info-detail { padding: 1rem; }
-    .product-info-detail h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
+    .product-info-detail h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 0.5rem; }
     .product-brand { font-size: 1rem; color: #C5A572; margin-bottom: 0.5rem; }
-    .product-meta {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .product-price-large {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #C5A572;
-    }
+    .product-meta { display: flex; align-items: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .product-price-large { font-size: 2rem; font-weight: 800; color: #C5A572; }
     .product-rating { color: #f1c40f; font-size: 1.2rem; }
     .product-rating span { color: #A0B3C9; margin-right: 0.5rem; font-size: 0.9rem; }
-    .product-description {
-      margin: 1.5rem 0;
-      line-height: 1.8;
-      color: #CDD7E6;
-      font-size: 1rem;
-    }
-    .product-notes {
-      background: rgba(255,255,255,0.05);
-      padding: 1.5rem;
-      border-radius: 24px;
-      margin: 1.5rem 0;
-      border: 1px solid rgba(197,165,114,0.3);
-    }
+    .product-description { margin: 1.5rem 0; line-height: 1.8; color: #CDD7E6; font-size: 1rem; }
+    .product-notes { background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 24px; margin: 1.5rem 0; border: 1px solid rgba(197,165,114,0.3); }
     .product-notes h3 { margin-bottom: 0.8rem; color: #C5A572; }
-    .product-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin: 1.5rem 0;
-    }
-    .social-share {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .social-share a {
-      color: #C5A572;
-      font-size: 1.3rem;
-      transition: 0.2s;
-    }
-    .similar-products {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(197,165,114,0.3);
-    }
-    .similar-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-    .similar-card {
-      background: rgba(25,45,65,0.7);
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      padding: 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s;
-      border: 1px solid rgba(197,165,114,0.2);
-    }
-    .similar-card:hover {
-      transform: translateY(-5px);
-      border-color: #C5A572;
-    }
-    .similar-card img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 16px;
-      margin-bottom: 0.5rem;
-    }
+    .product-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+    .social-share { display: flex; gap: 1rem; margin-top: 1rem; }
+    .social-share a { color: #C5A572; font-size: 1.3rem; transition: 0.2s; }
+    .similar-products { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(197,165,114,0.3); }
+    .similar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+    .similar-card { background: rgba(25,45,65,0.7); backdrop-filter: blur(8px); border-radius: 20px; padding: 1rem; text-align: center; cursor: pointer; transition: 0.2s; border: 1px solid rgba(197,165,114,0.2); }
+    .similar-card:hover { transform: translateY(-5px); border-color: #C5A572; }
+    .similar-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 16px; margin-bottom: 0.5rem; }
     .similar-card .similar-name { font-weight: 600; margin-top: 0.5rem; }
     .similar-card .similar-price { color: #C5A572; font-weight: 500; }
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(10,25,47,0.95);
-      backdrop-filter: blur(12px);
-      z-index: 2000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-content {
-      background: #102B3F;
-      border-radius: 32px;
-      max-width: 700px;
-      width: 90%;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding: 2rem;
-      border-top: 4px solid #C5A572;
-    }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin: 1rem 0;
-      border-bottom: 1px solid rgba(197,165,114,0.3);
-      padding-bottom: 0.8rem;
-    }
-    .toast {
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #C5A572;
-      color: #0A192F;
-      padding: 12px 28px;
-      border-radius: 40px;
-      font-weight: bold;
-      z-index: 3000;
-      animation: fadeOut 2s forwards;
-    }
-    @keyframes fadeOut {
-      0% { opacity: 1; }
-      70% { opacity: 1; }
-      100% { opacity: 0; visibility: hidden; }
-    }
-    @media (max-width: 768px) {
-      .product-detail-page { grid-template-columns: 1fr; }
-      .navbar { flex-direction: column; gap: 12px; }
-      .nav-links { gap: 1rem; }
-      .thumbnail { width: 60px; height: 60px; }
-    }
+    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,25,47,0.95); backdrop-filter: blur(12px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+    .modal-content { background: #102B3F; border-radius: 32px; max-width: 700px; width: 90%; max-height: 85vh; overflow-y: auto; padding: 2rem; border-top: 4px solid #C5A572; }
+    .cart-item { display: flex; justify-content: space-between; margin: 1rem 0; border-bottom: 1px solid rgba(197,165,114,0.3); padding-bottom: 0.8rem; }
+    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #C5A572; color: #0A192F; padding: 12px 28px; border-radius: 40px; font-weight: bold; z-index: 3000; animation: fadeOut 2s forwards; }
+    @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+    @media (max-width: 768px) { .product-detail-page { grid-template-columns: 1fr; } .navbar { flex-direction: column; gap: 12px; } .nav-links { gap: 1rem; } .thumbnail { width: 60px; height: 60px; } }
   </style>
 </head>
 <body>
@@ -316,7 +109,6 @@
   <div class="similar-grid" id="similarGrid"></div>
 </section>
 
-<!-- مودالات السلة والمفضلة -->
 <div id="cartModal" class="modal"><div class="modal-content"><h3>سلة التسوق <i class="fas fa-shopping-bag gold-accent"></i></h3><div id="cartItemsList"></div><div id="cartTotal"></div><button id="proceedCheckout" class="btn-primary">إتمام الشراء</button><button id="closeCartModal" class="btn-outline" style="margin-top:1rem">إغلاق</button></div></div>
 <div id="wishlistModal" class="modal"><div class="modal-content"><h3>المفضلة <i class="fas fa-heart gold-accent"></i></h3><div id="wishlistItems"></div><button id="closeWishlistModal" class="btn-outline">إغلاق</button></div></div>
 
@@ -332,7 +124,7 @@
 
 <script type="module">
   import { initializeApp } from 'firebase/app';
-  import { getFirestore, doc, getDoc, collection, getDocs, setDoc, addDoc, query, where } from 'firebase/firestore';
+  import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
   
   // 🔥 Firebase Config – استبدل هذه البيانات ببيانات مشروعك
   const firebaseConfig = {
@@ -347,22 +139,33 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   
-  // جعل الدوال الأساسية متاحة في النطاق العام
   window.db = db;
-  window.getDocs = getDocs;
-  window.collection = collection;
-  window.doc = doc;
   window.getDoc = getDoc;
   window.setDoc = setDoc;
-  window.addDoc = addDoc;
   
-  // ---------- المتغيرات العامة ----------
-  let allProducts = [];
+  // المنتجات محلياً (نفس المصفوفة الموجودة في index.html)
+  const products = [
+    { id: 1, name: "Imagination", brand: "Louis Vuitton", category: "Fresh", price: 7000, popularity: 98, image: "images/islam15.jpg", images: ["images/islam15.jpg", "images/islam155.jpg"], desc_ar: "انتعاش حمضي نابض بالحياة.", notes: "Orange, Bergamot, Citron", rating: 4.8, reviews: 124, similar: [2,5] },
+    { id: 2, name: "Pacific Chill", brand: "Louis Vuitton", category: "Fresh", price: 7000, popularity: 94, image: "images/islam12.jpg", images: ["images/islam12.jpg", "images/islam122.jpg"], desc_ar: "مزيج منعش من التين والحمضيات.", notes: "Fig, Lemon, Blackcurrant", rating: 4.7, reviews: 98, similar: [1,8] },
+    { id: 3, name: "Le Beau Le Parfum", brand: "Jean Paul Gaultier", category: "Romantic", price: 5500, popularity: 92, image: "images/islam13.jpg", images: ["images/islam13.jpg", "images/islam133.jpg", "images/islam1333.jpg"], desc_ar: "خشبي حلو مع الفانيليا وجوز الهند.", notes: "Vanilla, Iris, Tonka", rating: 4.6, reviews: 87, similar: [4,13] },
+    { id: 4, name: "Le Beau Paradise Garden", brand: "Jean Paul Gaultier", category: "Fresh", price: 6000, popularity: 88, image: "images/islam14.jpg", images: ["images/islam14.jpg", "images/islam144.jpg", "images/islam1444.jpg"], desc_ar: "انتعاش استوائي، أخضر ومائي.", notes: "Bergamot, Palm Tree, Vetiver", rating: 4.5, reviews: 72, similar: [2,3] },
+    { id: 5, name: "Le Male Le Parfum", brand: "Jean Paul Gaultier", category: "Strong", price: 5500, popularity: 96, image: "images/islam4.jpg", images: ["images/islam4.jpg", "images/islam44.jpg", "images/islam444.jpg", "images/islam4444.jpg"], desc_ar: "هيل وخزامى مكثفان.", notes: "Cardamom, Lavender, Iris", rating: 4.9, reviews: 210, similar: [6,7] },
+    { id: 6, name: "Le Male Elixir", brand: "Jean Paul Gaultier", category: "Strong", price: 6500, popularity: 91, image: "images/islam6.jpg", images: ["images/islam6.jpg", "images/islam66.jpg", "images/islam666.jpg"], desc_ar: "تركيز إكسير مع العسل والتبغ.", notes: "Honey, Tobacco, Vanilla", rating: 4.8, reviews: 156, similar: [5,7] },
+    { id: 7, name: "Ultra Male", brand: "Jean Paul Gaultier", category: "Romantic", price: 4500, popularity: 95, image: "images/islam7.jpg", images: ["images/islam7.jpg", "images/islam77.jpg", "images/islam777.jpg"], desc_ar: "كمثرى حلوة وفانيليا.", notes: "Pear, Vanilla, Bergamot", rating: 4.7, reviews: 189, similar: [3,13] },
+    { id: 8, name: "Sauvage Elixir", brand: "Dior", category: "Strong", price: 6500, popularity: 99, image: "images/islam011.jpg", images: ["images/islam011.jpg", "images/islam0011.jpg", "images/islam00011.jpg"], desc_ar: "إكسير خشبي حار خام.", notes: "Cinnamon, Nutmeg, Sandalwood", rating: 4.9, reviews: 324, similar: [5,9] },
+    { id: 9, name: "Dior Homme Intense", brand: "Dior", category: "Romantic", price: 5000, popularity: 93, image: "images/islam3.jpg", images: ["images/islam3.jpg", "images/islam33.jpg", "images/islam333.jpg", "images/islam3333.jpg"], desc_ar: "سوسن وجلد راقي.", notes: "Iris, Pear, Leather", rating: 4.8, reviews: 203, similar: [3,7] },
+    { id: 10, name: "Stronger With You Intensely", brand: "Emporio Armani", category: "Romantic", price: 5000, popularity: 94, image: "images/islam1.jpg", images: ["images/islam1.jpg", "images/islam11.jpg", "images/islam111.jpg"], desc_ar: "كستناء دافئة وفانيليا.", notes: "Chestnut, Vanilla, Pink Pepper", rating: 4.7, reviews: 178, similar: [11,3] },
+    { id: 11, name: "Stronger With You Absolutely", brand: "Emporio Armani", category: "Strong", price: 5500, popularity: 90, image: "images/islam10.jpg", images: ["images/islam10.jpg", "images/islam100.jpg", "images/islam1000.jpg"], desc_ar: "جلد كحولي مكثف.", notes: "Rum, Leather, Woods", rating: 4.6, reviews: 145, similar: [10,8] },
+    { id: 12, name: "Althaïr", brand: "Parfums de Marly", category: "Luxury", price: 7000, popularity: 97, image: "images/islam2.jpg", images: ["images/islam2.jpg", "images/islam22.jpg", "images/islam222.jpg", "images/islam2222.jpg"], desc_ar: "فانيليا شهية مع القرفة.", notes: "Vanilla, Cinnamon, Cedar", rating: 4.9, reviews: 267, similar: [13,14] },
+    { id: 13, name: "Layton Exclusif", brand: "Parfums de Marly", category: "Luxury", price: 7000, popularity: 98, image: "images/islam9.jpg", images: ["images/islam9.jpg", "images/islam99.jpg", "images/islam999.jpg"], desc_ar: "عود تفاح غريب.", notes: "Oud, Apple, Violet", rating: 4.9, reviews: 289, similar: [12,14] },
+    { id: 14, name: "Angels' Share", brand: "Kilian Paris", category: "Luxury", price: 6500, popularity: 99, image: "images/islam8.jpg", images: ["images/islam8.jpg", "images/islam88.jpg", "images/islam888.jpg"], desc_ar: "كونياك وقرفة.", notes: "Cognac, Cinnamon, Oak", rating: 4.9, reviews: 312, similar: [12,13] },
+    { id: 15, name: "Uomo Born In Roma Intense", brand: "Valentino", category: "Romantic", price: 5500, popularity: 89, image: "images/islam5.jpg", images: ["images/islam5.jpg", "images/islam55.jpg", "images/islam555.jpg"], desc_ar: "فانيليا مالحة وفيتيفر.", notes: "Vanilla, Sea Salt, Vetiver", rating: 4.5, reviews: 101, similar: [10,3] }
+  ];
+  
   let cart = [];
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   let currentProductId = null;
   
-  // ---------- دوال مساعدة ----------
   function getSessionId() {
     let sessionId = localStorage.getItem('sessionId');
     if (!sessionId) {
@@ -391,12 +194,6 @@
     updateCartBadge();
   }
   
-  async function fetchAllProducts() {
-    const querySnapshot = await getDocs(collection(db, 'products'));
-    allProducts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    return allProducts;
-  }
-  
   function updateCartBadge() {
     const total = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
     document.getElementById('cartCount').innerText = total;
@@ -415,13 +212,13 @@
   }
   
   async function addToCart(productId) {
-    const product = allProducts.find(p => p.id === productId);
+    const product = products.find(p => p.id == productId);
     if (!product) return;
-    const existing = cart.find(i => i.productId === productId);
+    const existing = cart.find(i => i.productId == productId);
     if (existing) {
       existing.quantity = (existing.quantity || 1) + 1;
     } else {
-      cart.push({ productId, name: product.name, price: product.price, image: product.image, quantity: 1 });
+      cart.push({ productId: product.id, name: product.name, price: product.price, image: product.image, quantity: 1 });
     }
     await saveCart();
     showToast(`تم إضافة ${product.name} إلى السلة`);
@@ -477,7 +274,7 @@
     document.querySelectorAll('[data-action="inc"]').forEach(btn => {
       btn.addEventListener('click', async () => {
         let id = btn.dataset.id;
-        let item = cart.find(i => i.productId === id);
+        let item = cart.find(i => i.productId == id);
         if (item) item.quantity++;
         await saveCart();
         updateCartUI();
@@ -486,10 +283,10 @@
     document.querySelectorAll('[data-action="dec"]').forEach(btn => {
       btn.addEventListener('click', async () => {
         let id = btn.dataset.id;
-        let item = cart.find(i => i.productId === id);
+        let item = cart.find(i => i.productId == id);
         if (item) {
           if (item.quantity > 1) item.quantity--;
-          else cart = cart.filter(i => i.productId !== id);
+          else cart = cart.filter(i => i.productId != id);
           await saveCart();
           updateCartUI();
         }
@@ -498,7 +295,7 @@
     document.querySelectorAll('[data-action="remove"]').forEach(btn => {
       btn.addEventListener('click', async () => {
         let id = btn.dataset.id;
-        cart = cart.filter(i => i.productId !== id);
+        cart = cart.filter(i => i.productId != id);
         await saveCart();
         updateCartUI();
       });
@@ -508,17 +305,10 @@
   async function loadProduct() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
-    if (!productId) {
-      window.location.href = 'index.html';
-      return;
-    }
+    if (!productId) { window.location.href = 'index.html'; return; }
     currentProductId = productId;
-    await fetchAllProducts();
-    const product = allProducts.find(p => p.id === productId);
-    if (!product) {
-      window.location.href = 'index.html';
-      return;
-    }
+    const product = products.find(p => p.id == productId);
+    if (!product) { window.location.href = 'index.html'; return; }
     document.getElementById('mainImage').src = product.image;
     document.getElementById('productName').innerText = product.name;
     document.getElementById('productBrand').innerText = product.brand;
@@ -528,7 +318,7 @@
     document.getElementById('productDesc').innerText = product.desc_ar;
     document.getElementById('notesText').innerText = product.notes;
     updateWishlistButton(productId);
-  
+    
     // الصور المصغرة
     const thumbnailsContainer = document.getElementById('thumbnailGrid');
     if (product.images && product.images.length > 1) {
@@ -544,11 +334,11 @@
     } else {
       thumbnailsContainer.innerHTML = '';
     }
-  
+    
     // منتجات مشابهة
     const similarIds = product.similar;
     if (similarIds && similarIds.length) {
-      const similarProducts = allProducts.filter(p => similarIds.includes(parseInt(p.id)));
+      const similarProducts = products.filter(p => similarIds.includes(p.id));
       if (similarProducts.length) {
         const similarGrid = document.getElementById('similarGrid');
         similarGrid.innerHTML = similarProducts.map(sp => `
@@ -564,7 +354,7 @@
         });
       }
     }
-  
+    
     // روابط المشاركة
     const shareText = `تعرّف على عطر ${product.name} من Carnaval Perfume`;
     const shareUrl = encodeURIComponent(window.location.href);
@@ -573,7 +363,7 @@
     document.getElementById('instagramShare').href = `https://www.instagram.com/`;
   }
   
-  // ---------- ربط الأحداث ----------
+  // ربط الأحداث
   document.getElementById('cartBtnNav').addEventListener('click', async () => { await updateCartUI(); document.getElementById('cartModal').style.display = 'flex'; });
   document.getElementById('closeCartModal').addEventListener('click', () => document.getElementById('cartModal').style.display = 'none');
   document.getElementById('proceedCheckout').addEventListener('click', () => {
@@ -582,7 +372,7 @@
     window.location.href = 'checkout.html';
   });
   document.getElementById('wishlistBtnNav').addEventListener('click', () => {
-    let wishlistItems = allProducts.filter(p => wishlist.includes(p.id));
+    let wishlistItems = products.filter(p => wishlist.includes(p.id.toString()));
     const container = document.getElementById('wishlistItems');
     if (wishlistItems.length === 0) container.innerHTML = '<p>المفضلة فارغة</p>';
     else container.innerHTML = wishlistItems.map(p => `<div style="display:flex; justify-content:space-between; margin:8px 0;">${p.name} - ${p.price} د.ج <button class="btn-outline" onclick="addToCart('${p.id}'); document.getElementById('wishlistModal').style.display='none';">أضف إلى السلة</button></div>`).join('');

@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* جميع الأنماط السابقة – اختصاراً سأضع الأنماط الأساسية، يمكنك نسخ الأنماط الكاملة من الرد السابق */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #0A192F; color: #F5F2EB; font-family: 'Inter', sans-serif; line-height: 1.5; overflow-x: hidden; }
     body.rtl { direction: rtl; text-align: right; }
@@ -196,7 +197,7 @@
 <div id="wishlistModal" class="modal"><div class="modal-content"><h3>المفضلة <i class="fas fa-heart gold-accent"></i></h3><div id="wishlistItems"></div><button id="closeWishlistModal" class="btn-outline">إغلاق</button></div></div>
 <div id="quizModal" class="quiz-modal"><div id="quizContainer" class="quiz-container"></div></div>
 
-<!-- Firebase SDK -->
+<!-- Import map and Firebase module -->
 <script type="importmap">
   {
     "imports": {
@@ -208,7 +209,7 @@
 
 <script type="module">
   import { initializeApp } from 'firebase/app';
-  import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, query, where } from 'firebase/firestore';
+  import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
   
   // 🔥 Firebase Config – استبدل هذه البيانات ببيانات مشروعك
   const firebaseConfig = {
@@ -223,23 +224,35 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   
-  // جعل الدوال الأساسية متاحة في النطاق العام (للاستخدام في الأحداث)
   window.db = db;
-  window.getDocs = getDocs;
-  window.collection = collection;
-  window.doc = doc;
   window.getDoc = getDoc;
   window.setDoc = setDoc;
-  window.addDoc = addDoc;
-  window.query = query;
-  window.where = where;
   
-  // ---------- باقي الكود (نفس الكود السابق لكن مع تصحيح الأخطاء) ----------
-  let allProducts = [];
+  // ---------- المنتجات محلياً (15 عطر) ----------
+  const products = [
+    { id: 1, name: "Imagination", brand: "Louis Vuitton", category: "Fresh", price: 7000, popularity: 98, image: "images/islam15.jpg", images: ["images/islam15.jpg", "images/islam155.jpg"], desc_ar: "انتعاش حمضي نابض بالحياة.", notes: "Orange, Bergamot, Citron", rating: 4.8, reviews: 124, similar: [2,5] },
+    { id: 2, name: "Pacific Chill", brand: "Louis Vuitton", category: "Fresh", price: 7000, popularity: 94, image: "images/islam12.jpg", images: ["images/islam12.jpg", "images/islam122.jpg"], desc_ar: "مزيج منعش من التين والحمضيات.", notes: "Fig, Lemon, Blackcurrant", rating: 4.7, reviews: 98, similar: [1,8] },
+    { id: 3, name: "Le Beau Le Parfum", brand: "Jean Paul Gaultier", category: "Romantic", price: 5500, popularity: 92, image: "images/islam13.jpg", images: ["images/islam13.jpg", "images/islam133.jpg", "images/islam1333.jpg"], desc_ar: "خشبي حلو مع الفانيليا وجوز الهند.", notes: "Vanilla, Iris, Tonka", rating: 4.6, reviews: 87, similar: [4,13] },
+    { id: 4, name: "Le Beau Paradise Garden", brand: "Jean Paul Gaultier", category: "Fresh", price: 6000, popularity: 88, image: "images/islam14.jpg", images: ["images/islam14.jpg", "images/islam144.jpg", "images/islam1444.jpg"], desc_ar: "انتعاش استوائي، أخضر ومائي.", notes: "Bergamot, Palm Tree, Vetiver", rating: 4.5, reviews: 72, similar: [2,3] },
+    { id: 5, name: "Le Male Le Parfum", brand: "Jean Paul Gaultier", category: "Strong", price: 5500, popularity: 96, image: "images/islam4.jpg", images: ["images/islam4.jpg", "images/islam44.jpg", "images/islam444.jpg", "images/islam4444.jpg"], desc_ar: "هيل وخزامى مكثفان.", notes: "Cardamom, Lavender, Iris", rating: 4.9, reviews: 210, similar: [6,7] },
+    { id: 6, name: "Le Male Elixir", brand: "Jean Paul Gaultier", category: "Strong", price: 6500, popularity: 91, image: "images/islam6.jpg", images: ["images/islam6.jpg", "images/islam66.jpg", "images/islam666.jpg"], desc_ar: "تركيز إكسير مع العسل والتبغ.", notes: "Honey, Tobacco, Vanilla", rating: 4.8, reviews: 156, similar: [5,7] },
+    { id: 7, name: "Ultra Male", brand: "Jean Paul Gaultier", category: "Romantic", price: 4500, popularity: 95, image: "images/islam7.jpg", images: ["images/islam7.jpg", "images/islam77.jpg", "images/islam777.jpg"], desc_ar: "كمثرى حلوة وفانيليا.", notes: "Pear, Vanilla, Bergamot", rating: 4.7, reviews: 189, similar: [3,13] },
+    { id: 8, name: "Sauvage Elixir", brand: "Dior", category: "Strong", price: 6500, popularity: 99, image: "images/islam011.jpg", images: ["images/islam011.jpg", "images/islam0011.jpg", "images/islam00011.jpg"], desc_ar: "إكسير خشبي حار خام.", notes: "Cinnamon, Nutmeg, Sandalwood", rating: 4.9, reviews: 324, similar: [5,9] },
+    { id: 9, name: "Dior Homme Intense", brand: "Dior", category: "Romantic", price: 5000, popularity: 93, image: "images/islam3.jpg", images: ["images/islam3.jpg", "images/islam33.jpg", "images/islam333.jpg", "images/islam3333.jpg"], desc_ar: "سوسن وجلد راقي.", notes: "Iris, Pear, Leather", rating: 4.8, reviews: 203, similar: [3,7] },
+    { id: 10, name: "Stronger With You Intensely", brand: "Emporio Armani", category: "Romantic", price: 5000, popularity: 94, image: "images/islam1.jpg", images: ["images/islam1.jpg", "images/islam11.jpg", "images/islam111.jpg"], desc_ar: "كستناء دافئة وفانيليا.", notes: "Chestnut, Vanilla, Pink Pepper", rating: 4.7, reviews: 178, similar: [11,3] },
+    { id: 11, name: "Stronger With You Absolutely", brand: "Emporio Armani", category: "Strong", price: 5500, popularity: 90, image: "images/islam10.jpg", images: ["images/islam10.jpg", "images/islam100.jpg", "images/islam1000.jpg"], desc_ar: "جلد كحولي مكثف.", notes: "Rum, Leather, Woods", rating: 4.6, reviews: 145, similar: [10,8] },
+    { id: 12, name: "Althaïr", brand: "Parfums de Marly", category: "Luxury", price: 7000, popularity: 97, image: "images/islam2.jpg", images: ["images/islam2.jpg", "images/islam22.jpg", "images/islam222.jpg", "images/islam2222.jpg"], desc_ar: "فانيليا شهية مع القرفة.", notes: "Vanilla, Cinnamon, Cedar", rating: 4.9, reviews: 267, similar: [13,14] },
+    { id: 13, name: "Layton Exclusif", brand: "Parfums de Marly", category: "Luxury", price: 7000, popularity: 98, image: "images/islam9.jpg", images: ["images/islam9.jpg", "images/islam99.jpg", "images/islam999.jpg"], desc_ar: "عود تفاح غريب.", notes: "Oud, Apple, Violet", rating: 4.9, reviews: 289, similar: [12,14] },
+    { id: 14, name: "Angels' Share", brand: "Kilian Paris", category: "Luxury", price: 6500, popularity: 99, image: "images/islam8.jpg", images: ["images/islam8.jpg", "images/islam88.jpg", "images/islam888.jpg"], desc_ar: "كونياك وقرفة.", notes: "Cognac, Cinnamon, Oak", rating: 4.9, reviews: 312, similar: [12,13] },
+    { id: 15, name: "Uomo Born In Roma Intense", brand: "Valentino", category: "Romantic", price: 5500, popularity: 89, image: "images/islam5.jpg", images: ["images/islam5.jpg", "images/islam55.jpg", "images/islam555.jpg"], desc_ar: "فانيليا مالحة وفيتيفر.", notes: "Vanilla, Sea Salt, Vetiver", rating: 4.5, reviews: 101, similar: [10,3] }
+  ];
+  
+  // ---------- المتغيرات العامة ----------
   let cart = [];
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   let currentLang = 'ar';
   
+  // ---------- دوال مساعدة ----------
   function getSessionId() {
     let sessionId = localStorage.getItem('sessionId');
     if (!sessionId) {
@@ -268,12 +281,6 @@
     updateCartBadge();
   }
   
-  async function fetchAllProducts() {
-    const querySnapshot = await getDocs(collection(db, 'products'));
-    allProducts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    return allProducts;
-  }
-  
   function updateCartBadge() {
     const total = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
     document.getElementById('cartCount').innerText = total;
@@ -294,13 +301,13 @@
   }
   
   async function addToCart(productId) {
-    const product = allProducts.find(p => p.id === productId);
+    const product = products.find(p => p.id == productId);
     if (!product) return;
-    const existing = cart.find(i => i.productId === productId);
+    const existing = cart.find(i => i.productId == productId);
     if (existing) {
       existing.quantity = (existing.quantity || 1) + 1;
     } else {
-      cart.push({ productId, name: product.name, price: product.price, image: product.image, quantity: 1 });
+      cart.push({ productId: product.id, name: product.name, price: product.price, image: product.image, quantity: 1 });
     }
     await saveCart();
     showToast(`تم إضافة ${product.name} إلى السلة`);
@@ -342,7 +349,7 @@
     document.querySelectorAll('[data-action="inc"]').forEach(btn => {
       btn.addEventListener('click', async () => {
         let id = btn.dataset.id;
-        let item = cart.find(i => i.productId === id);
+        let item = cart.find(i => i.productId == id);
         if (item) item.quantity++;
         await saveCart();
         updateCartUI();
@@ -351,10 +358,10 @@
     document.querySelectorAll('[data-action="dec"]').forEach(btn => {
       btn.addEventListener('click', async () => {
         let id = btn.dataset.id;
-        let item = cart.find(i => i.productId === id);
+        let item = cart.find(i => i.productId == id);
         if (item) {
           if (item.quantity > 1) item.quantity--;
-          else cart = cart.filter(i => i.productId !== id);
+          else cart = cart.filter(i => i.productId != id);
           await saveCart();
           updateCartUI();
         }
@@ -363,27 +370,27 @@
     document.querySelectorAll('[data-action="remove"]').forEach(btn => {
       btn.addEventListener('click', async () => {
         let id = btn.dataset.id;
-        cart = cart.filter(i => i.productId !== id);
+        cart = cart.filter(i => i.productId != id);
         await saveCart();
         updateCartUI();
       });
     });
   }
   
-  async function renderProducts() {
+  function renderProducts() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const category = document.getElementById('categoryFilter')?.value || 'all';
     const brand = document.getElementById('brandFilter')?.value || 'all';
     const sort = document.getElementById('sortBy')?.value || 'popular';
-  
-    let filtered = [...allProducts];
+    
+    let filtered = [...products];
     if (category !== 'all') filtered = filtered.filter(p => p.category === category);
     if (brand !== 'all') filtered = filtered.filter(p => p.brand === brand);
     if (searchTerm) filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm) || p.brand.toLowerCase().includes(searchTerm));
     if (sort === 'price_asc') filtered.sort((a,b) => a.price - b.price);
     else if (sort === 'price_desc') filtered.sort((a,b) => b.price - a.price);
     else filtered.sort((a,b) => b.popularity - a.popularity);
-  
+    
     const grid = document.getElementById('products');
     if (!filtered.length) {
       grid.innerHTML = '<div style="text-align:center; padding:3rem; color:#A0B3C9;">لا توجد منتجات مطابقة للبحث</div>';
@@ -398,7 +405,7 @@
           <div class="product-price">${p.price} د.ج</div>
           <div class="card-actions">
             <button class="btn-primary add-to-cart-btn" data-id="${p.id}" style="padding:6px 18px;">أضف إلى السلة</button>
-            <div class="wishlist-icon ${wishlist.includes(p.id) ? 'active' : ''}" data-id="${p.id}"><i class="fas fa-heart"></i></div>
+            <div class="wishlist-icon ${wishlist.includes(p.id.toString()) ? 'active' : ''}" data-id="${p.id}"><i class="fas fa-heart"></i></div>
           </div>
         </div>
       </div>
@@ -424,7 +431,7 @@
     });
   }
   
-  // الاختبار التفاعلي (Quiz) – مختصر هنا ولكن يمكن إضافته كاملاً
+  // ---------- الاختبار التفاعلي (Quiz) ----------
   const quizQuestions = [
     { text_en: "What vibe do you seek?", text_ar: "ما الأجواء التي تبحث عنها؟", icon: "fa-meteor", options: [{text_en:"Fresh & Energetic",text_ar:"منعش وحيوي",cat:"Fresh",icon:"fa-water"},{text_en:"Romantic & Sweet",text_ar:"رومانسي وحلو",cat:"Romantic",icon:"fa-heart"},{text_en:"Bold & Strong",text_ar:"جريء وقوي",cat:"Strong",icon:"fa-crown"},{text_en:"Exclusive Luxury",text_ar:"فاخر وحصري",cat:"Luxury",icon:"fa-gem"}] },
     { text_en: "Which occasion?", text_ar: "أي مناسبة؟", icon: "fa-calendar-alt", options: [{text_en:"Daily/Casual",text_ar:"يومي",cat:"Fresh",icon:"fa-sun"},{text_en:"Date Night",text_ar:"ليلة رومانسية",cat:"Romantic",icon:"fa-moon"},{text_en:"Business/Confidence",text_ar:"عمل/ثقة",cat:"Strong",icon:"fa-briefcase"},{text_en:"Gala/Events",text_ar:"حفلات راقية",cat:"Luxury",icon:"fa-star"}] },
@@ -444,7 +451,7 @@
       quizScores[quizSelected[quizStep]]++;
       if(quizStep === quizQuestions.length-1) {
         let topCat = Object.keys(quizScores).reduce((a,b)=>quizScores[a]>quizScores[b]?a:b);
-        let recommended = allProducts.filter(p=>p.category===topCat).slice(0,4);
+        let recommended = products.filter(p=>p.category===topCat).slice(0,4);
         container.innerHTML = `<div><h2>${currentLang==='en'?'Your Signature Style':'أسلوبك المميز'}: <span class="gold-accent">${topCat}</span></h2><p>${currentLang==='en'?'Based on your answers, we recommend:':'بناءً على إجاباتك، نوصي:'}</p><div style="display:flex; flex-wrap:wrap; gap:1rem;">${recommended.map(p=>`<div style="background:rgba(255,255,255,0.05); border-radius:20px; padding:0.5rem; width:130px; text-align:center;"><img src="${p.image}" width="80" style="border-radius:12px;"><div>${p.name}</div><button class="btn-primary" style="margin-top:5px;padding:4px 12px;" data-id="${p.id}">Add</button></div>`).join('')}</div><button id="closeQuizRes" class="btn-outline" style="margin-top:1rem;">${currentLang==='en'?'Close':'إغلاق'}</button></div>`;
         document.querySelectorAll('[data-id]').forEach(btn=>btn.addEventListener('click',(e)=>{ addToCart(btn.dataset.id); showToast('Added to cart'); }));
         document.getElementById('closeQuizRes').onclick = ()=>document.getElementById('quizModal').style.display='none';
@@ -453,13 +460,12 @@
   }
   function openQuiz() { quizStep=0; quizScores={ Fresh:0, Romantic:0, Strong:0, Luxury:0 }; quizSelected=[]; renderQuiz(); document.getElementById('quizModal').style.display='flex'; }
   
-  // تهيئة الصفحة
+  // ---------- تهيئة الصفحة وأحداثها ----------
   async function init() {
-    await fetchAllProducts();
     await loadCart();
     renderProducts();
     updateWishlistBadge();
-  
+    
     document.getElementById('searchInput').addEventListener('input', renderProducts);
     const categoryFilter = document.getElementById('categoryFilter');
     if (categoryFilter) categoryFilter.addEventListener('change', renderProducts);
@@ -467,7 +473,7 @@
     if (brandFilter) brandFilter.addEventListener('change', renderProducts);
     const sortBy = document.getElementById('sortBy');
     if (sortBy) sortBy.addEventListener('change', renderProducts);
-  
+    
     document.getElementById('cartBtnNav').addEventListener('click', async () => { await updateCartUI(); document.getElementById('cartModal').style.display='flex'; });
     document.getElementById('closeCartModal').addEventListener('click', () => document.getElementById('cartModal').style.display='none');
     document.getElementById('proceedCheckout').addEventListener('click', () => {
@@ -476,7 +482,7 @@
       window.location.href = 'checkout.html';
     });
     document.getElementById('wishlistBtnNav').addEventListener('click', () => {
-      let wishlistItems = allProducts.filter(p => wishlist.includes(p.id));
+      let wishlistItems = products.filter(p => wishlist.includes(p.id.toString()));
       const container = document.getElementById('wishlistItems');
       if (wishlistItems.length === 0) container.innerHTML = '<p>المفضلة فارغة</p>';
       else container.innerHTML = wishlistItems.map(p => `<div style="display:flex; justify-content:space-between; margin:8px 0;">${p.name} - ${p.price} د.ج <button class="btn-outline" onclick="addToCart('${p.id}'); document.getElementById('wishlistModal').style.display='none';">أضف إلى السلة</button></div>`).join('');
@@ -484,7 +490,7 @@
     });
     document.getElementById('closeWishlistModal').addEventListener('click', () => document.getElementById('wishlistModal').style.display='none');
     document.getElementById('quizHeroBtn').addEventListener('click', openQuiz);
-  
+    
     // القائمة الجانبية
     const hamburger = document.getElementById('hamburgerBtn');
     const sideMenu = document.getElementById('sideMenu');
@@ -506,20 +512,20 @@
     });
     document.querySelectorAll('.side-lang').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
     document.getElementById('sideWishlistBtn').addEventListener('click', () => {
-      let wishlistItems = allProducts.filter(p => wishlist.includes(p.id));
+      let wishlistItems = products.filter(p => wishlist.includes(p.id.toString()));
       const container = document.getElementById('wishlistItems');
       if (wishlistItems.length === 0) container.innerHTML = '<p>المفضلة فارغة</p>';
       else container.innerHTML = wishlistItems.map(p => `<div style="display:flex; justify-content:space-between; margin:8px 0;">${p.name} - ${p.price} د.ج <button class="btn-outline" onclick="addToCart('${p.id}'); document.getElementById('wishlistModal').style.display='none';">أضف إلى السلة</button></div>`).join('');
       document.getElementById('wishlistModal').style.display = 'flex';
       sideMenu.classList.remove('open');
     });
-  
+    
     window.addEventListener('scroll', () => {
       const navbar = document.getElementById('navbar');
       if (window.scrollY > 50) navbar.classList.add('scrolled');
       else navbar.classList.remove('scrolled');
     });
-  
+    
     setLanguage('ar');
   }
   

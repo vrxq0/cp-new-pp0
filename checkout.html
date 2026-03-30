@@ -1,602 +1,507 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carnaval Perfume | إتمام الطلب</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: #0A192F;
-            color: #F5F2EB;
-            font-family: 'Inter', sans-serif;
-            line-height: 1.5;
-        }
-        
-        .gold-accent {
-            color: #C5A572;
-        }
-        
-        .btn-primary {
-            background: #C5A572;
-            color: #0A192F;
-            border: none;
-            padding: 12px 28px;
-            font-weight: 600;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            width: 100%;
-        }
-        
-        .btn-primary:hover {
-            background: #b3905a;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(197, 165, 114, 0.3);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #C5A572;
-            color: #C5A572;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(10, 25, 47, 0.7);
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(197, 165, 114, 0.2);
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .nav-links a {
-            color: #F5F2EB;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        
-        .nav-links a:hover {
-            color: #C5A572;
-        }
-        
-        .checkout-page {
-            padding: 6rem 5% 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .checkout-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-        
-        .checkout-form-container {
-            background: rgba(25, 45, 65, 0.7);
-            backdrop-filter: blur(8px);
-            padding: 2rem;
-            border-radius: 32px;
-            border: 1px solid rgba(197, 165, 114, 0.3);
-        }
-        
-        .checkout-form-container h2 {
-            margin-bottom: 1.5rem;
-            font-size: 1.6rem;
-            position: relative;
-        }
-        
-        .checkout-form-container h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            right: 0;
-            width: 60px;
-            height: 3px;
-            background: #C5A572;
-            border-radius: 2px;
-        }
-        
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(197, 165, 114, 0.5);
-            border-radius: 20px;
-            color: #F5F2EB;
-            font-size: 1rem;
-        }
-        
-        .form-group select option {
-            background: white;
-            color: black;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #C5A572;
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        
-        .order-summary-card {
-            background: rgba(25, 45, 65, 0.7);
-            backdrop-filter: blur(8px);
-            padding: 2rem;
-            border-radius: 32px;
-            border: 1px solid rgba(197, 165, 114, 0.3);
-            align-self: start;
-            position: sticky;
-            top: 100px;
-        }
-        
-        .order-summary-card h2 {
-            margin-bottom: 1.5rem;
-            font-size: 1.6rem;
-        }
-        
-        .order-items {
-            margin-bottom: 1.5rem;
-        }
-        
-        .order-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px dashed rgba(197, 165, 114, 0.3);
-        }
-        
-        .order-item-name {
-            font-weight: 500;
-        }
-        
-        .order-item-price {
-            font-weight: 600;
-            color: #C5A572;
-        }
-        
-        .order-total-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.8rem 0;
-            font-size: 1rem;
-            border-top: 1px solid rgba(197, 165, 114, 0.3);
-        }
-        
-        .order-grand-total {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #C5A572;
-            border-top: 2px solid #C5A572;
-            margin-top: 0.5rem;
-            padding-top: 1rem;
-        }
-        
-        .payment-methods {
-            margin: 1.5rem 0;
-        }
-        
-        .payment-method {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.8rem;
-            border: 1px solid rgba(197, 165, 114, 0.4);
-            border-radius: 20px;
-            margin-bottom: 0.8rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        
-        .payment-method.selected {
-            border-color: #C5A572;
-            background: rgba(197, 165, 114, 0.1);
-        }
-        
-        .payment-method input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #C5A572;
-        }
-        
-        .secure-badge {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: #A0B3C9;
-        }
-        /* نافذة تأكيد الطلب المحسّنة */
-        
-        .success-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 25, 47, 0.95);
-            backdrop-filter: blur(12px);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .success-modal-content {
-            background: #102B3F;
-            border-radius: 32px;
-            max-width: 500px;
-            width: 90%;
-            padding: 2rem;
-            text-align: center;
-            border-top: 4px solid #C5A572;
-            animation: fadeSlideUp 0.4s ease;
-        }
-        
-        @keyframes fadeSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .success-icon {
-            font-size: 4rem;
-            color: #C5A572;
-            margin-bottom: 1rem;
-        }
-        
-        .success-modal-content h2 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 1.5rem;
-        }
-        
-        .order-details {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 24px;
-            margin: 1rem 0;
-            text-align: right;
-        }
-        
-        .order-details p {
-            margin: 0.5rem 0;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .order-details span:first-child {
-            font-weight: 500;
-            color: #C5A572;
-        }
-        
-        .thankyou-message {
-            margin: 1rem 0;
-            color: #CDD7E6;
-            font-size: 0.9rem;
-        }
-        
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
-        
-        .toast {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #C5A572;
-            color: #0A192F;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: bold;
-            z-index: 3000;
-            animation: fadeOut 2s forwards;
-        }
-        
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            70% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .checkout-grid {
-                grid-template-columns: 1fr;
-            }
-            .order-summary-card {
-                position: static;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carnaval Perfume | إتمام الطلب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0A192F;
+      color: #F5F2EB;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+    }
+    .gold-accent { color: #C5A572; }
+    .btn-primary {
+      background: #C5A572;
+      color: #0A192F;
+      border: none;
+      padding: 12px 28px;
+      font-weight: 600;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background: #b3905a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(197,165,114,0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #C5A572;
+      color: #C5A572;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      background: rgba(10,25,47,0.7);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(197,165,114,0.2);
+      flex-wrap: wrap;
+    }
+    .logo { font-size: 1.8rem; font-weight: 800; font-family: 'Playfair Display', serif; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: #F5F2EB; text-decoration: none; font-weight: 500; transition: 0.2s; }
+    .nav-links a:hover { color: #C5A572; }
+    .checkout-page {
+      padding: 6rem 5% 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+    .checkout-form-container {
+      background: rgba(25,45,65,0.7);
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+      border-radius: 32px;
+      border: 1px solid rgba(197,165,114,0.3);
+    }
+    .checkout-form-container h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+      position: relative;
+    }
+    .checkout-form-container h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 0;
+      width: 60px;
+      height: 3px;
+      background: #C5A572;
+      border-radius: 2px;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(197,165,114,0.5);
+      border-radius: 20px;
+      color: #F5F2EB;
+      font-size: 1rem;
+    }
+    .form-group select option {
+      background: white;
+      color: black;
+    }
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: #C5A572;
+      background: rgba(255,255,255,0.15);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .order-summary-card {
+      background: rgba(25,45,65,0.7);
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+      border-radius: 32px;
+      border: 1px solid rgba(197,165,114,0.3);
+      align-self: start;
+      position: sticky;
+      top: 100px;
+    }
+    .order-summary-card h2 { margin-bottom: 1.5rem; font-size: 1.6rem; }
+    .order-items { margin-bottom: 1.5rem; }
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px dashed rgba(197,165,114,0.3);
+    }
+    .order-item-name { font-weight: 500; }
+    .order-item-price { font-weight: 600; color: #C5A572; }
+    .order-total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      font-size: 1rem;
+      border-top: 1px solid rgba(197,165,114,0.3);
+    }
+    .order-grand-total {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #C5A572;
+      border-top: 2px solid #C5A572;
+      margin-top: 0.5rem;
+      padding-top: 1rem;
+    }
+    .payment-methods { margin: 1.5rem 0; }
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem;
+      border: 1px solid rgba(197,165,114,0.4);
+      border-radius: 20px;
+      margin-bottom: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .payment-method.selected {
+      border-color: #C5A572;
+      background: rgba(197,165,114,0.1);
+    }
+    .payment-method input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #C5A572;
+    }
+    .secure-badge {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #A0B3C9;
+    }
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #C5A572;
+      color: #0A192F;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: bold;
+      z-index: 3000;
+      animation: fadeOut 2s forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      70% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+    /* نافذة تأكيد الطلب المنبثقة */
+    .success-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10,25,47,0.95);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .success-modal-content {
+      background: #102B3F;
+      border-radius: 32px;
+      max-width: 500px;
+      width: 90%;
+      padding: 2rem;
+      text-align: center;
+      border-top: 4px solid #C5A572;
+      animation: fadeSlideUp 0.4s ease;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .success-icon { font-size: 4rem; color: #C5A572; margin-bottom: 1rem; }
+    .order-details { background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 24px; margin: 1rem 0; text-align: right; }
+    .order-details p { margin: 0.5rem 0; display: flex; justify-content: space-between; }
+    .order-details span:first-child { font-weight: 500; color: #C5A572; }
+    .thankyou-message { margin: 1rem 0; color: #CDD7E6; }
+    .modal-buttons { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
+    @media (max-width: 768px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+      .order-summary-card { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <header>
-        <div class="navbar">
-            <div class="logo">CARNAVAL <span class="gold-accent">PERFUME</span></div>
-            <div class="nav-links">
-                <a href="index.html">الرئيسية</a>
-                <a href="index.html#products">المجموعة</a>
-                <a href="index.html#story">القصة</a>
-            </div>
-        </div>
-    </header>
+<header>
+  <div class="navbar">
+    <div class="logo">CARNAVAL <span class="gold-accent">PERFUME</span></div>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html#products">المجموعة</a>
+      <a href="index.html#story">القصة</a>
+    </div>
+  </div>
+</header>
 
-    <section class="checkout-page">
-        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">إتمام الطلب</h1>
-        <div class="checkout-grid">
-            <div class="checkout-form-container">
-                <h2>معلومات التوصيل</h2>
-                <form id="checkoutForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>الاسم</label>
-                            <input type="text" id="firstName" placeholder="محمد" required>
-                        </div>
-                        <div class="form-group">
-                            <label>اللقب</label>
-                            <input type="text" id="lastName" placeholder="أحمد" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>العنوان الكامل</label>
-                        <input type="text" id="address" placeholder="رقم 12، شارع الاستقلال، الجزائر العاصمة" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>الولاية</label>
-                            <select id="wilaya" required>
+<section class="checkout-page">
+  <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">إتمام الطلب</h1>
+  <div class="checkout-grid">
+    <div class="checkout-form-container">
+      <h2>معلومات التوصيل</h2>
+      <form id="checkoutForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>الاسم</label>
+            <input type="text" id="firstName" placeholder="محمد" required>
+          </div>
+          <div class="form-group">
+            <label>اللقب</label>
+            <input type="text" id="lastName" placeholder="أحمد" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>العنوان الكامل</label>
+          <input type="text" id="address" placeholder="رقم 12، شارع الاستقلال، الجزائر العاصمة" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>الولاية</label>
+            <select id="wilaya" required>
               <option value="">اختر الولاية</option>
               <option value="1">أدرار</option><option value="2">الشلف</option><option value="3">الأغواط</option><option value="4">أم البواقي</option><option value="5">باتنة</option><option value="6">بجاية</option><option value="7">بسكرة</option><option value="8">بشار</option><option value="9">البليدة</option><option value="10">البويرة</option><option value="11">تمنراست</option><option value="12">تبسة</option><option value="13">تلمسان</option><option value="14">تيارت</option><option value="15">تيزي وزو</option><option value="16">الجزائر</option><option value="17">الجلفة</option><option value="18">جيجل</option><option value="19">سطيف</option><option value="20">سعيدة</option><option value="21">سكيكدة</option><option value="22">سيدي بلعباس</option><option value="23">عنابة</option><option value="24">قالمة</option><option value="25">قسنطينة</option><option value="26">المدية</option><option value="27">مستغانم</option><option value="28">المسيلة</option><option value="29">معسكر</option><option value="30">ورقلة</option><option value="31">وهران</option><option value="32">البيض</option><option value="33">إليزي</option><option value="34">برج بوعريريج</option><option value="35">بومرداس</option><option value="36">الطارف</option><option value="37">تندوف</option><option value="38">تيسمسيلت</option><option value="39">عين الدفلى</option><option value="40">النعامة</option><option value="41">عين تموشنت</option><option value="42">غرداية</option><option value="43">غليزان</option><option value="44">المغير</option><option value="45">المنيعة</option><option value="46">أولاد جلال</option><option value="47">بني عباس</option><option value="48">تيميمون</option><option value="49">تقرت</option><option value="50">الوادي</option><option value="51">خنشلة</option><option value="52">سوق أهراس</option><option value="53">تيبازة</option><option value="54">ميلة</option>
             </select>
-                        </div>
-                        <div class="form-group">
-                            <label>رقم الهاتف</label>
-                            <input type="tel" id="phone" placeholder="0555123456" required>
-                        </div>
-                    </div>
-                    <h2 style="margin-top: 1.5rem;">طريقة الدفع</h2>
-                    <div class="payment-methods">
-                        <label class="payment-method selected">
+          </div>
+          <div class="form-group">
+            <label>رقم الهاتف</label>
+            <input type="tel" id="phone" placeholder="0555123456" required>
+          </div>
+        </div>
+        <h2 style="margin-top: 1.5rem;">طريقة الدفع</h2>
+        <div class="payment-methods">
+          <label class="payment-method selected">
             <input type="radio" name="payment" value="cod" checked> الدفع عند الاستلام
           </label>
-                        <label class="payment-method">
+          <label class="payment-method">
             <input type="radio" name="payment" value="card"> بطاقة ائتمان (+2% رسوم)
           </label>
-                    </div>
-                </form>
-            </div>
-
-            <div class="order-summary-card">
-                <h2>ملخص الطلب</h2>
-                <div class="order-items" id="orderItems"></div>
-                <div class="order-total-row">
-                    <span>المجموع الفرعي</span>
-                    <span id="orderSubtotal">0 د.ج</span>
-                </div>
-                <div class="order-total-row">
-                    <span>تكلفة التوصيل</span>
-                    <span id="orderShipping">15 د.ج</span>
-                </div>
-                <div class="order-total-row order-grand-total">
-                    <span>الإجمالي</span>
-                    <span id="orderTotal">0 د.ج</span>
-                </div>
-                <button class="btn-primary" id="placeOrderBtn" style="margin-top: 1.5rem;">تأكيد الطلب</button>
-                <div class="secure-badge">
-                    <i class="fas fa-shield-alt"></i> معلوماتك محمية وآمنة
-                </div>
-            </div>
         </div>
-    </section>
-
-    <!-- نافذة تأكيد الطلب المنبثقة (Success Modal) -->
-    <div id="successModal" class="success-modal">
-        <div class="success-modal-content">
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h2>تم تأكيد طلبك</h2>
-            <div class="order-details" id="orderDetailsSummary">
-                <!-- سيتم ملؤها بواسطة JavaScript -->
-            </div>
-            <div class="thankyou-message">
-                <i class="fas fa-heart gold-accent"></i> شكراً لتسوقك مع Carnaval Perfume
-            </div>
-            <div class="modal-buttons">
-                <button class="btn-primary" id="closeSuccessModal">إغلاق</button>
-            </div>
-        </div>
+      </form>
     </div>
 
-    <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const deliveryFee = 15;
+    <div class="order-summary-card">
+      <h2>ملخص الطلب</h2>
+      <div class="order-items" id="orderItems"></div>
+      <div class="order-total-row">
+        <span>المجموع الفرعي</span>
+        <span id="orderSubtotal">0 د.ج</span>
+      </div>
+      <div class="order-total-row">
+        <span>تكلفة التوصيل</span>
+        <span id="orderShipping">15 د.ج</span>
+      </div>
+      <div class="order-total-row order-grand-total">
+        <span>الإجمالي</span>
+        <span id="orderTotal">0 د.ج</span>
+      </div>
+      <button class="btn-primary" id="placeOrderBtn" style="margin-top: 1.5rem;">مراجعة الطلب</button>
+      <div class="secure-badge">
+        <i class="fas fa-shield-alt"></i> معلوماتك محمية وآمنة
+      </div>
+    </div>
+  </div>
+</section>
 
-        function updateOrderSummary() {
-            const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-            const total = subtotal + deliveryFee;
-            const orderItemsDiv = document.getElementById('orderItems');
-            if (cart.length === 0) {
-                orderItemsDiv.innerHTML = '<p style="color: #A0B3C9;">السلة فارغة</p>';
-                document.getElementById('orderSubtotal').innerText = '0 د.ج';
-                document.getElementById('orderTotal').innerText = '0 د.ج';
-                document.getElementById('placeOrderBtn').disabled = true;
-                return;
-            }
-            orderItemsDiv.innerHTML = cart.map(item => `
+<!-- نافذة تأكيد الطلب -->
+<div id="successModal" class="success-modal">
+  <div class="success-modal-content">
+    <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+    <h2>تم تأكيد طلبك ✔️</h2>
+    <div class="order-details" id="orderDetailsSummary"></div>
+    <div class="thankyou-message"><i class="fas fa-heart gold-accent"></i> شكراً لتسوقك مع Carnaval Perfume</div>
+    <div class="modal-buttons">
+      <button class="btn-primary" id="closeSuccessModal">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import map and Firebase module -->
+<script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js",
+      "firebase/firestore": "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"
+    }
+  }
+</script>
+
+<script type="module">
+  import { initializeApp } from 'firebase/app';
+  import { getFirestore, doc, getDoc, collection, addDoc, setDoc } from 'firebase/firestore';
+  
+  // 🔥 Firebase Config – استبدل هذه البيانات ببيانات مشروعك
+  const firebaseConfig = {
+    apiKey: "AIzaSyB...",      // <--- ضع المفتاح الصحيح
+    authDomain: "carnaval-perfume.firebaseapp.com",
+    projectId: "carnaval-perfume",
+    storageBucket: "carnaval-perfume.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef"
+  };
+  
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  
+  window.db = db;
+  window.getDoc = getDoc;
+  window.setDoc = setDoc;
+  window.addDoc = addDoc;
+  
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const deliveryFee = 15;
+  
+  function getSessionId() {
+    let sessionId = localStorage.getItem('sessionId');
+    if (!sessionId) {
+      sessionId = 'user_' + Date.now() + '_' + Math.random().toString(36);
+      localStorage.setItem('sessionId', sessionId);
+    }
+    return sessionId;
+  }
+  
+  async function saveOrderToFirebase(orderData) {
+    const sessionId = getSessionId();
+    const orderWithSession = { ...orderData, sessionId, timestamp: new Date().toISOString() };
+    await addDoc(collection(db, 'orders'), orderWithSession);
+  }
+  
+  async function clearCart() {
+    const sessionId = getSessionId();
+    const docRef = doc(db, 'carts', sessionId);
+    await setDoc(docRef, { items: [] });
+    cart = [];
+    localStorage.removeItem('cart');
+  }
+  
+  function updateOrderSummary() {
+    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total = subtotal + deliveryFee;
+    const orderItemsDiv = document.getElementById('orderItems');
+    if (cart.length === 0) {
+      orderItemsDiv.innerHTML = '<p style="color:#A0B3C9;">السلة فارغة</p>';
+      document.getElementById('orderSubtotal').innerText = '0 د.ج';
+      document.getElementById('orderTotal').innerText = '0 د.ج';
+      document.getElementById('placeOrderBtn').disabled = true;
+      return;
+    }
+    orderItemsDiv.innerHTML = cart.map(item => `
       <div class="order-item">
-        <span class="order-item-name">${item.name} x${item.qty}</span>
-        <span class="order-item-price">${item.price * item.qty} د.ج</span>
+        <span class="order-item-name">${item.name} x${item.quantity}</span>
+        <span class="order-item-price">${item.price * item.quantity} د.ج</span>
       </div>
     `).join('');
-            document.getElementById('orderSubtotal').innerText = `${subtotal} د.ج`;
-            document.getElementById('orderTotal').innerText = `${total} د.ج`;
-            document.getElementById('placeOrderBtn').disabled = false;
-        }
-
-        function showToast(message) {
-            let toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerText = message;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2000);
-        }
-
-        // عرض نافذة التأكيد بدلاً من alert
-        function showSuccessModal(customerData, subtotal, total) {
-            const modal = document.getElementById('successModal');
-            const detailsContainer = document.getElementById('orderDetailsSummary');
-            const paymentText = customerData.payment === 'cod' ? 'الدفع عند الاستلام' : 'بطاقة ائتمان';
-            detailsContainer.innerHTML = `
+    document.getElementById('orderSubtotal').innerText = `${subtotal} د.ج`;
+    document.getElementById('orderTotal').innerText = `${total} د.ج`;
+    document.getElementById('placeOrderBtn').disabled = false;
+  }
+  
+  function showToast(message) {
+    let toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerText = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2000);
+  }
+  
+  function showSuccessModal(customerData, subtotal, total) {
+    const modal = document.getElementById('successModal');
+    const detailsContainer = document.getElementById('orderDetailsSummary');
+    const paymentText = customerData.payment === 'cod' ? 'الدفع عند الاستلام' : 'بطاقة ائتمان';
+    detailsContainer.innerHTML = `
       <p><span>الاسم:</span> <span>${customerData.firstName} ${customerData.lastName}</span></p>
       <p><span>رقم الهاتف:</span> <span>${customerData.phone}</span></p>
       <p><span>العنوان الكامل:</span> <span>${customerData.address}</span></p>
       <p><span>طريقة الدفع:</span> <span>${paymentText}</span></p>
       <p><span>الإجمالي:</span> <span>${total} د.ج</span></p>
     `;
-            modal.style.display = 'flex';
-        }
-
-        const paymentRadios = document.querySelectorAll('input[name="payment"]');
-        paymentRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-                this.closest('.payment-method').classList.add('selected');
-            });
-        });
-
-        document.getElementById('placeOrderBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            if (cart.length === 0) {
-                showToast('السلة فارغة');
-                return;
-            }
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName = document.getElementById('lastName').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const wilaya = document.getElementById('wilaya').value;
-            const phone = document.getElementById('phone').value.trim();
-            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-
-            if (!firstName || !lastName || !address || !wilaya || !phone) {
-                showToast('الرجاء ملء جميع الحقول');
-                return;
-            }
-
-            const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-            const total = subtotal + deliveryFee;
-
-            // عرض نافذة التأكيد بدلاً من alert
-            showSuccessModal({
-                firstName,
-                lastName,
-                address,
-                wilaya,
-                phone,
-                payment: paymentMethod
-            }, subtotal, total);
-
-            // تفريغ السلة بعد إغلاق النافذة (سيتم التعامل معه عند إغلاق النافذة)
-            // نضع مؤقت لحفظ أن الطلب تم
-            window.orderCompleted = true;
-        });
-
-        // إغلاق نافذة التأكيد وتفريغ السلة والرجوع إلى الصفحة الرئيسية
-        document.getElementById('closeSuccessModal').addEventListener('click', function() {
-            const modal = document.getElementById('successModal');
-            modal.style.display = 'none';
-            if (window.orderCompleted) {
-                localStorage.removeItem('cart');
-                window.location.href = 'index.html';
-            }
-        });
-
-        // إغلاق النافذة إذا نقر المستخدم خارج المحتوى (اختياري)
-        window.addEventListener('click', function(e) {
-            const modal = document.getElementById('successModal');
-            if (e.target === modal) {
-                modal.style.display = 'none';
-                if (window.orderCompleted) {
-                    localStorage.removeItem('cart');
-                    window.location.href = 'index.html';
-                }
-            }
-        });
-
-        updateOrderSummary();
-    </script>
+    modal.style.display = 'flex';
+  }
+  
+  // ربط أحداث الدفع
+  const paymentRadios = document.querySelectorAll('input[name="payment"]');
+  paymentRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+      this.closest('.payment-method').classList.add('selected');
+    });
+  });
+  
+  document.getElementById('placeOrderBtn').addEventListener('click', async function(e) {
+    e.preventDefault();
+    if (cart.length === 0) {
+      showToast('السلة فارغة');
+      return;
+    }
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const wilaya = document.getElementById('wilaya').value;
+    const phone = document.getElementById('phone').value.trim();
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+  
+    if (!firstName || !lastName || !address || !wilaya || !phone) {
+      showToast('الرجاء ملء جميع الحقول');
+      return;
+    }
+  
+    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total = subtotal + deliveryFee;
+  
+    const customerData = { firstName, lastName, address, wilaya, phone, payment: paymentMethod };
+    const orderData = {
+      customerInfo: customerData,
+      items: cart.map(item => ({ productId: item.productId, name: item.name, price: item.price, quantity: item.quantity })),
+      subtotal,
+      deliveryFee,
+      total,
+      status: 'pending'
+    };
+  
+    try {
+      await saveOrderToFirebase(orderData);
+      await clearCart();
+      showSuccessModal(customerData, subtotal, total);
+    } catch (err) {
+      showToast('حدث خطأ أثناء تأكيد الطلب');
+      console.error(err);
+    }
+  });
+  
+  document.getElementById('closeSuccessModal').addEventListener('click', () => {
+    document.getElementById('successModal').style.display = 'none';
+    window.location.href = 'index.html';
+  });
+  
+  window.addEventListener('click', (e) => {
+    const modal = document.getElementById('successModal');
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      window.location.href = 'index.html';
+    }
+  });
+  
+  updateOrderSummary();
+</script>
 </body>
-
 </html>
